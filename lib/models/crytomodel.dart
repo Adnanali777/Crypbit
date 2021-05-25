@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
-
 import 'dart:convert';
 
 List<CryptoModel> welcomeFromJson(String str) => List<CryptoModel>.from(
@@ -38,6 +34,7 @@ class CryptoModel {
     this.the1D,
     this.the30D,
     this.firstPricedAt,
+    this.oneDayChange,
   });
 
   String id;
@@ -66,6 +63,7 @@ class CryptoModel {
   The1D the1D;
   The1D the30D;
   DateTime firstPricedAt;
+  double oneDayChange;
 
   factory CryptoModel.fromJson(Map<String, dynamic> json) => CryptoModel(
         id: json["id"],
@@ -100,6 +98,7 @@ class CryptoModel {
         firstPricedAt: json["first_priced_at"] == null
             ? null
             : DateTime.parse(json["first_priced_at"]),
+        oneDayChange: double.parse(json["1d"]["price_change_pct"]),
       );
 
   Map<String, dynamic> toJson() => {

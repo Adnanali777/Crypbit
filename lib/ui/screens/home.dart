@@ -1,4 +1,5 @@
 import 'package:crypto_app/resources/network_calls.dart';
+import 'package:crypto_app/resources/repository.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -7,9 +8,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Repository _repository = Repository();
   @override
   void initState() {
-    CurrencyApiProvider.getCurrencies();
+    _repository.fetchallcurrencies();
     super.initState();
   }
 
