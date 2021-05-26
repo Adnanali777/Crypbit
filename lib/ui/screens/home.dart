@@ -13,13 +13,13 @@ class _HomeState extends State<Home> {
   Repository _repository = Repository();
   @override
   void initState() {
-    _repository.fetchallcurrencies();
+    bloc.fetchAllMovies();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    _repository.fetchallcurrencies();
+    bloc.fetchAllMovies();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
