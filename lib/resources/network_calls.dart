@@ -24,11 +24,14 @@ class CurrencyApiProvider {
       /*result.forEach((e) {
         print(NumberFormat.compact().format(double.parse(e.marketCap)));
       });*/
-      result.forEach((e) {
-        print(NumberFormat.currency(
-                decimalDigits: 3, symbol: '\$', locale: 'en_us')
-            .format(double.parse(e.price)));
-      });
+      // result.forEach((e) {
+      //   print(NumberFormat.currency(
+      //           decimalDigits: 2, symbol: '\$', locale: 'en_us')
+      //       .format(double.parse(e.price)));
+      // });
+      // result.forEach((element) {
+      //   print(element.oneDayChange);
+      // });
     } catch (e) {
       print(e.toString());
     }
