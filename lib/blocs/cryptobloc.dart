@@ -1,6 +1,5 @@
 import 'package:crypto_app/models/crytomodel.dart';
 import 'package:crypto_app/resources/repository.dart';
-import 'package:flutter/foundation.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CryptoBlock {

@@ -6,6 +6,7 @@ import 'package:crypto_app/ui/widgets/infotile.dart';
 import 'package:crypto_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,10 +22,16 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void dispose() {
+    bloc.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bloc.fetchAllMovies();
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[400],
       appBar: AppBar(
         title: Text('Crypbit'),
       ),
@@ -32,7 +39,25 @@ class _HomeState extends State<Home> {
         stream: bloc.allcurrency,
         builder: (context, AsyncSnapshot<List<CryptoModel>> snapshot) {
           if (snapshot.hasData) {
-            return InfoTile();
+            return ListView.builder(
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  var price = NumberFormat.currency(
+                          decimalDigits: 2, symbol: '\$', locale: 'en_us')
+                      .format(double.parse(snapshot.data[index].price));
+                  var perchng = snapshot.data[index].oneDayChange * 100;
+                  var mcap = NumberFormat.compact()
+                      .format(double.parse(snapshot.data[index].marketCap));
+                  return InfoTile(
+                    name: snapshot.data[index].name,
+                    id: snapshot.data[index].id,
+                    imageurl: snapshot.data[index].logoUrl,
+                    price: price,
+                    mcap: mcap,
+                    change: perchng,
+                  );
+                });
           } else {
             return Center(
               child: CircularProgressIndicator(),
