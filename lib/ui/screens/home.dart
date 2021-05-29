@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
+  String selectedcurr;
+  Home({this.selectedcurr});
   @override
   _HomeState createState() => _HomeState();
 }
@@ -29,39 +31,51 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     bloc.fetchAllMovies();
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        backgroundColor: Colors.grey[200],
-        title: Text('Crypbit', style: constants.appbarstyle),
-        centerTitle: true,
-        elevation: 0.0,
-      ),
       body: StreamBuilder(
         stream: bloc.allcurrency,
         builder: (context, AsyncSnapshot<List<CryptoModel>> snapshot) {
           if (snapshot.hasData) {
-            return ListView.builder(
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  var price = NumberFormat.currency(
-                          decimalDigits: 2, symbol: '\$', locale: 'en_us')
-                      .format(double.parse(snapshot.data[index].price));
-                  var perchng = snapshot.data[index].oneDayChange * 100;
-                  var mcap = NumberFormat.compact()
-                      .format(double.parse(snapshot.data[index].marketCap));
-                  var finalchng = double.parse((perchng).toStringAsFixed(2));
-                  return InfoTile(
-                    name: snapshot.data[index].name,
-                    id: snapshot.data[index].id,
-                    imageurl: snapshot.data[index].logoUrl,
-                    price: price,
-                    mcap: mcap,
-                    change: finalchng,
-                  );
-                });
+            return CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: size.width * 0.3,
+                  backgroundColor: Colors.grey[200],
+                  flexibleSpace: FlexibleSpaceBar(
+                    title: Text(
+                      'CRYPBIT',
+                      style: constants.appbarstyle,
+                    ),
+                    centerTitle: true,
+                  ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    print(widget.selectedcurr);
+                    var price = NumberFormat.currency(
+                            decimalDigits: 2, symbol: '\$', locale: 'en_us')
+                        .format(double.parse(snapshot.data[index].price));
+                    var perchng = snapshot.data[index].oneDayChange * 100;
+                    var mcap = NumberFormat.compact()
+                        .format(double.parse(snapshot.data[index].marketCap));
+                    var finalchng = double.parse((perchng).toStringAsFixed(2));
+                    return InfoTile(
+                      name: snapshot.data[index].name,
+                      id: snapshot.data[index].id,
+                      imageurl: snapshot.data[index].logoUrl,
+                      price: price,
+                      mcap: mcap,
+                      change: finalchng,
+                      curr: widget.selectedcurr,
+                    );
+                  }, childCount: snapshot.data.length),
+                ),
+              ],
+            );
           } else {
             return Center(
               child: CircularProgressIndicator(),

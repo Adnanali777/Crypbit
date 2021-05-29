@@ -10,8 +10,15 @@ class InfoTile extends StatefulWidget {
   String price;
   String mcap;
   double change;
+  String curr;
   InfoTile(
-      {this.change, this.id, this.imageurl, this.mcap, this.name, this.price});
+      {this.curr,
+      this.change,
+      this.id,
+      this.imageurl,
+      this.mcap,
+      this.name,
+      this.price});
 
   @override
   _InfoTileState createState() => _InfoTileState();
