@@ -31,9 +31,12 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     bloc.fetchAllMovies();
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
-        title: Text('Crypbit'),
+        backgroundColor: Colors.grey[200],
+        title: Text('Crypbit', style: constants.appbarstyle),
+        centerTitle: true,
+        elevation: 0.0,
       ),
       body: StreamBuilder(
         stream: bloc.allcurrency,
@@ -49,13 +52,14 @@ class _HomeState extends State<Home> {
                   var perchng = snapshot.data[index].oneDayChange * 100;
                   var mcap = NumberFormat.compact()
                       .format(double.parse(snapshot.data[index].marketCap));
+                  var finalchng = double.parse((perchng).toStringAsFixed(2));
                   return InfoTile(
                     name: snapshot.data[index].name,
                     id: snapshot.data[index].id,
                     imageurl: snapshot.data[index].logoUrl,
                     price: price,
                     mcap: mcap,
-                    change: perchng,
+                    change: finalchng,
                   );
                 });
           } else {

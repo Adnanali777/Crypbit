@@ -32,6 +32,9 @@ class CurrencyApiProvider {
       // result.forEach((element) {
       //   print(element.oneDayChange);
       // });
+      result.forEach((element) {
+        print(element.oneDayChange * 100);
+      });
     } catch (e) {
       print(e.toString());
     }

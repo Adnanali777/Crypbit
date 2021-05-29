@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class constants {
@@ -13,6 +14,11 @@ class constants {
 
   static final TextStyle mcaptextstyle = GoogleFonts.quicksand(fontSize: 15);
 
-  static final TextStyle percentstyle =
-      GoogleFonts.quicksand(fontSize: 12, fontWeight: FontWeight.bold);
+  static final TextStyle percentstyle = GoogleFonts.quicksand(
+      fontSize: 12, fontWeight: FontWeight.bold, letterSpacing: 1.2);
+  static final TextStyle appbarstyle = GoogleFonts.quicksand(
+      fontSize: 30,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 1.3,
+      color: Colors.black);
 }

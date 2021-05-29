@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_app/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class InfoTile extends StatefulWidget {
   String imageurl;
@@ -19,15 +20,15 @@ class InfoTile extends StatefulWidget {
 class _InfoTileState extends State<InfoTile> {
   @override
   Widget build(BuildContext context) {
-    var finalchng = double.parse((widget.change).toStringAsFixed(2));
     final Size size = MediaQuery.of(context).size;
+    final isSvg = widget.imageurl.endsWith('.svg');
     return Container(
       height: size.height * 0.3,
       width: size.width * 1,
       margin: EdgeInsets.symmetric(
           vertical: size.height * 0.03, horizontal: size.width * 0.02),
       padding: EdgeInsets.fromLTRB(size.width * 0.045, size.height * 0.025,
-          size.width * 0.001, size.height * 0.025),
+          size.width * 0.040, size.height * 0.025),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -41,24 +42,26 @@ class _InfoTileState extends State<InfoTile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
-                radius: 19,
+                backgroundColor: Colors.transparent,
+                radius: 15,
+                child: isSvg
+                    ? SvgPicture.network(
+                        '${widget.imageurl}',
+                        fit: BoxFit.cover,
+                      )
+                    : Image.network(
+                        '${widget.imageurl}',
+                        fit: BoxFit.cover,
+                      ),
               ),
               SizedBox(
                 width: 5,
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 7),
-                child: Text('${widget.name}', style: constants.nametextStyle),
-              ),
-              SizedBox(
-                width: size.width * 0.5,
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text(
-                  '${widget.id}',
-                  style: constants.idtextstyle,
-                ),
+              Text('${widget.name}', style: constants.nametextStyle),
+              Spacer(),
+              Text(
+                '${widget.id}',
+                style: constants.idtextstyle,
               )
             ],
           ),
@@ -92,16 +95,21 @@ class _InfoTileState extends State<InfoTile> {
             flex: 1,
             child: Container(
               height: size.height * 0.03,
-              width: size.width * 0.15,
+              width: size.width * 0.25,
               decoration: BoxDecoration(
                 color: widget.change > 0 ? Colors.green[400] : Colors.red[400],
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
-                child: Text(
-                  '$finalchng' + '%',
-                  style: constants.percentstyle,
-                ),
+                child: widget.change > 0
+                    ? Text(
+                        '+' '${widget.change}' + '%',
+                        style: constants.percentstyle,
+                      )
+                    : Text(
+                        '${widget.change}' + '%',
+                        style: constants.percentstyle,
+                      ),
               ),
             ),
           )
