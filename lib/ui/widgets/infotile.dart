@@ -11,6 +11,7 @@ class InfoTile extends StatefulWidget {
   String mcap;
   double change;
   String curr;
+  bool reqcurr;
   InfoTile(
       {this.curr,
       this.change,
@@ -18,6 +19,7 @@ class InfoTile extends StatefulWidget {
       this.imageurl,
       this.mcap,
       this.name,
+      this.reqcurr,
       this.price});
 
   @override
@@ -37,7 +39,7 @@ class _InfoTileState extends State<InfoTile> {
       padding: EdgeInsets.fromLTRB(size.width * 0.045, size.height * 0.025,
           size.width * 0.040, size.height * 0.025),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: widget.reqcurr ? constants.darkshade : Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -64,18 +66,26 @@ class _InfoTileState extends State<InfoTile> {
               SizedBox(
                 width: 5,
               ),
-              Text('${widget.name}', style: constants.nametextStyle),
+              Text('${widget.name}',
+                  style: widget.reqcurr
+                      ? constants.darknametextStyle
+                      : constants.nametextStyle),
               Spacer(),
               Text(
                 '${widget.id}',
-                style: constants.idtextstyle,
+                style: widget.reqcurr
+                    ? constants.darkidtextstyle
+                    : constants.idtextstyle,
               )
             ],
           ),
           SizedBox(
             height: size.height * 0.025,
           ),
-          Text('${widget.price}', style: constants.pricetextstyle),
+          Text('${widget.price}',
+              style: widget.reqcurr
+                  ? constants.darkpricetextstyle
+                  : constants.pricetextstyle),
           SizedBox(
             height: size.height * 0.05,
           ),
@@ -84,14 +94,18 @@ class _InfoTileState extends State<InfoTile> {
             children: [
               Text(
                 'Market Cap:',
-                style: GoogleFonts.quicksand(fontSize: 15),
+                style: widget.reqcurr
+                    ? GoogleFonts.quicksand(fontSize: 15, color: Colors.white)
+                    : GoogleFonts.quicksand(fontSize: 15),
               ),
               SizedBox(
                 width: 6,
               ),
               Text(
                 '${widget.mcap}',
-                style: constants.mcaptextstyle,
+                style: widget.reqcurr
+                    ? constants.darkmcaptextstyle
+                    : constants.mcaptextstyle,
               ),
             ],
           ),
@@ -111,7 +125,9 @@ class _InfoTileState extends State<InfoTile> {
                 child: widget.change > 0
                     ? Text(
                         '+' '${widget.change}' + '%',
-                        style: constants.percentstyle,
+                        style: widget.reqcurr
+                            ? constants.darkpercentstyle
+                            : constants.percentstyle,
                       )
                     : Text(
                         '${widget.change}' + '%',

@@ -1,5 +1,6 @@
 import 'package:crypto_app/ui/screens/home.dart';
 import 'package:crypto_app/ui/widgets/currencyselect.dart';
+import 'package:crypto_app/utils/currencies.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,7 +10,7 @@ class LandScreen extends StatefulWidget {
 }
 
 class _LandScreenState extends State<LandScreen> {
-  List<String> _curr = ['Bitcoin', 'Ethereum', 'Ripple'];
+  List<String> _curr = Currencies().curr;
   String _selectedcurr = 'Bitcoin';
 
   @override

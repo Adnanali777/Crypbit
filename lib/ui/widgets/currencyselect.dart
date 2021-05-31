@@ -7,7 +7,11 @@ class Currselect extends StatefulWidget {
 }
 
 class _CurrselectState extends State<Currselect> {
-  List<String> _curr = ['Bitcoin', 'Ethereum', 'Ripple'];
+  List<String> _curr = [
+    'Bitcoin',
+    'Ethereum',
+    'Ripple',
+  ];
   String _selectedcurr = 'Bitcoin';
   @override
   Widget build(BuildContext context) {

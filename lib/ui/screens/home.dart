@@ -63,6 +63,10 @@ class _HomeState extends State<Home> {
                     var mcap = NumberFormat.compact()
                         .format(double.parse(snapshot.data[index].marketCap));
                     var finalchng = double.parse((perchng).toStringAsFixed(2));
+                    bool reqcurr =
+                        widget.selectedcurr == snapshot.data[index].name
+                            ? true
+                            : false;
                     return InfoTile(
                       name: snapshot.data[index].name,
                       id: snapshot.data[index].id,
@@ -71,6 +75,7 @@ class _HomeState extends State<Home> {
                       mcap: mcap,
                       change: finalchng,
                       curr: widget.selectedcurr,
+                      reqcurr: reqcurr,
                     );
                   }, childCount: snapshot.data.length),
                 ),
