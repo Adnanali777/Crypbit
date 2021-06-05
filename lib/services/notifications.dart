@@ -19,7 +19,7 @@ class NotificationService {
         FlutterLocalNotificationsPlugin();
 
     AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings("app_icon");
+        AndroidInitializationSettings("ic_launcher");
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
@@ -46,5 +46,26 @@ class NotificationService {
     }
 
     shownotifications();
+  }
+
+  //Sheduled Notification
+
+  Future sheduledNotification() async {
+    var interval = RepeatInterval.everyMinute;
+    var bigPicture = BigPictureStyleInformation(
+        DrawableResourceAndroidBitmap("ic_launcher"),
+        largeIcon: DrawableResourceAndroidBitmap("ic_launcher"),
+        contentTitle: "Hello There",
+        summaryText: "Time to check your currency status",
+        htmlFormatContent: true,
+        htmlFormatContentTitle: true);
+
+    var android = AndroidNotificationDetails("id", "channel", "description",
+        styleInformation: bigPicture);
+
+    var platform = new NotificationDetails(android: android);
+
+    await _flutterLocalNotificationsPlugin.periodicallyShow(0, "Hello there",
+        "Time to check your currency status", interval, platform);
   }
 }
