@@ -2,11 +2,14 @@ import 'package:crypto_app/blocs/cryptobloc.dart';
 import 'package:crypto_app/models/crytomodel.dart';
 import 'package:crypto_app/resources/network_calls.dart';
 import 'package:crypto_app/resources/repository.dart';
+import 'package:crypto_app/services/notifications.dart';
 import 'package:crypto_app/ui/widgets/infotile.dart';
 import 'package:crypto_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   String selectedcurr;
@@ -20,6 +23,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     bloc.fetchAllMovies();
+
     super.initState();
   }
 
@@ -55,7 +59,6 @@ class _HomeState extends State<Home> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                    print(widget.selectedcurr);
                     var price = NumberFormat.currency(
                             decimalDigits: 2, symbol: '\$', locale: 'en_us')
                         .format(double.parse(snapshot.data[index].price));
@@ -67,6 +70,15 @@ class _HomeState extends State<Home> {
                         widget.selectedcurr == snapshot.data[index].name
                             ? true
                             : false;
+                    if (reqcurr) {
+                      if (snapshot.data[index].oneDayChange < 0) {
+                        NotificationService().initialize('Uhhohh :/',
+                            '${snapshot.data[index].name} is not doing great');
+                      } else {
+                        NotificationService().initialize('Yayy :D',
+                            '${snapshot.data[index].name} is doing great');
+                      }
+                    }
                     return InfoTile(
                       name: snapshot.data[index].name,
                       id: snapshot.data[index].id,
@@ -83,7 +95,9 @@ class _HomeState extends State<Home> {
             );
           } else {
             return Center(
-              child: CircularProgressIndicator(),
+              child: SpinKitSquareCircle(
+                color: Color(0xff8760FB),
+              ),
             );
           }
         },

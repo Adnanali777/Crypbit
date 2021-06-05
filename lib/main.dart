@@ -1,8 +1,10 @@
-import 'package:crypto_app/ui/screens/home.dart';
+import 'package:crypto_app/services/notifications.dart';
 import 'package:crypto_app/ui/screens/landscreen.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().initialize;
   runApp(MyApp());
 }
 
