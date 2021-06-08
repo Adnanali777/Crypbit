@@ -110,7 +110,7 @@ class _LandScreenState extends State<LandScreen> {
           FlatButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => Home(
+                    builder: (context) => Pagecontroller(
                           selectedcurr: _selectedcurr,
                         )));
               },

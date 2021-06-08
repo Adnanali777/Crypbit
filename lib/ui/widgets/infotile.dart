@@ -11,7 +11,7 @@ class InfoTile extends StatefulWidget {
   String mcap;
   double change;
   String curr;
-  bool reqcurr;
+  bool reqcurr = false;
   InfoTile(
       {this.curr,
       this.change,

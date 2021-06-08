@@ -1,15 +1,43 @@
+import 'dart:async';
+
 import 'package:crypto_app/blocs/cryptobloc.dart';
 import 'package:crypto_app/models/crytomodel.dart';
-import 'package:crypto_app/resources/network_calls.dart';
 import 'package:crypto_app/resources/repository.dart';
 import 'package:crypto_app/services/notifications.dart';
+import 'package:crypto_app/ui/screens/currsearch.dart';
 import 'package:crypto_app/ui/widgets/infotile.dart';
 import 'package:crypto_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+
+final _controller = PageController(
+  initialPage: 0,
+);
+
+class Pagecontroller extends StatefulWidget {
+  String selectedcurr;
+  Pagecontroller({this.selectedcurr});
+
+  @override
+  _PagecontrollerState createState() => _PagecontrollerState();
+}
+
+class _PagecontrollerState extends State<Pagecontroller> {
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      physics: BouncingScrollPhysics(),
+      controller: _controller,
+      children: <Widget>[
+        Home(
+          selectedcurr: widget.selectedcurr,
+        ),
+        Search(),
+      ],
+    );
+  }
+}
 
 class Home extends StatefulWidget {
   String selectedcurr;
@@ -18,8 +46,21 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
-  Repository _repository = Repository();
+class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  Future<bool> initializeController() {
+    Completer<bool> completer = new Completer<bool>();
+
+    /// Callback called after widget has been fully built
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      completer.complete(true);
+    });
+
+    return completer.future;
+  }
+
   @override
   void initState() {
     bloc.fetchAllMovies();
@@ -101,6 +142,34 @@ class _HomeState extends State<Home> {
             );
           }
         },
+      ),
+      floatingActionButton: Container(
+        height: MediaQuery.of(context).size.height * 0.054,
+        width: MediaQuery.of(context).size.width * 0.29,
+        margin: EdgeInsets.symmetric(vertical: 10),
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            _controller.nextPage(
+                duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+          },
+          label: Container(
+            child: Row(
+              children: [
+                Text(
+                  "Currency",
+                  style: TextStyle(fontSize: 12, letterSpacing: 1.1),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  Icons.search,
+                  size: 18,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

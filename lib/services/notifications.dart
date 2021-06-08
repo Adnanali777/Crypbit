@@ -48,7 +48,7 @@ class NotificationService {
     shownotifications();
   }
 
-  //Sheduled Notification
+  //Scheduled Notification
 
   Future sheduledNotification() async {
     var interval = RepeatInterval.everyMinute;
