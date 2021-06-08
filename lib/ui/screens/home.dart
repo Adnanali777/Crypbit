@@ -137,7 +137,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
           } else {
             return Center(
               child: SpinKitSquareCircle(
-                color: Color(0xff8760FB),
+                color: constants.purcolor,
               ),
             );
           }
@@ -148,6 +148,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         width: MediaQuery.of(context).size.width * 0.29,
         margin: EdgeInsets.symmetric(vertical: 10),
         child: FloatingActionButton.extended(
+          backgroundColor: constants.purcolor,
           onPressed: () {
             _controller.nextPage(
                 duration: Duration(milliseconds: 300), curve: Curves.easeIn);

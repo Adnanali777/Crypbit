@@ -41,13 +41,13 @@ class _LandScreenState extends State<LandScreen> {
             TextSpan(
               text: 'Welcome to ',
               style: GoogleFonts.quicksand(
-                  color: Colors.black, fontSize: 19, letterSpacing: 1.2),
+                  color: Colors.black, fontSize: 18, letterSpacing: 1.2),
             ),
             TextSpan(
               text: 'Crypbit',
               style: GoogleFonts.quicksand(
                   color: Colors.black,
-                  fontSize: 19,
+                  fontSize: 18,
                   letterSpacing: 1.2,
                   fontWeight: FontWeight.bold),
             ),
@@ -67,7 +67,7 @@ class _LandScreenState extends State<LandScreen> {
           Text(
             'Please select a currency of your choice',
             style: GoogleFonts.quicksand(
-                color: Colors.black, fontSize: 17, letterSpacing: 1),
+                color: Colors.black, fontSize: 18, letterSpacing: 1.2),
           ),
           SizedBox(
             height: 15,

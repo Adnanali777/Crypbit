@@ -41,4 +41,5 @@ class constants {
       letterSpacing: 1.3,
       color: Colors.black);
   static const Color darkshade = Color(0xff282A4F);
+  static const Color purcolor = Color(0xff8760FB);
 }
