@@ -1,5 +1,6 @@
 import 'package:crypto_app/services/notifications.dart';
 import 'package:crypto_app/ui/screens/landscreen.dart';
+import 'package:crypto_app/ui/screens/splashscreen.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LandScreen(),
+      home: Splashscreen(),
     );
   }
 }

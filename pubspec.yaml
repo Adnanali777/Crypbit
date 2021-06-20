@@ -37,6 +37,8 @@ dependencies:
   flutter_local_notifications: ^6.0.0
   provider: ^5.0.0
   firebase_messaging: ^10.0.1
+  flutter_emoji: ^2.2.1+1
+  animated_text_kit: ^4.2.1
 
 dev_dependencies:
   flutter_test:
